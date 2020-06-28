@@ -135,5 +135,10 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.4",
+    "postcss-cli": "^7.1.1",
+    "tailwindcss": "^1.4.6"
   }
 }
