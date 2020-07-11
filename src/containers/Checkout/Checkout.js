@@ -10,13 +10,12 @@ class Checkout extends Component {
     }
   }
   checkoutContinuedHandler = () => {
-    console.log("checkoutContinuedHandler")
-    this.props.history.goBack()
+    // console.log("checkoutContinuedHandler")
+    this.props.history.replace('/checkout/contact-data')
   }
   checkoutCanceledHandler = () => {
-    console.log("checkoutCanceledHandler")
-    this.props.history.replace('/checkout/contact-data')
-
+    // console.log("checkoutCanceledHandler")
+    this.props.history.goBack()
   }
   render() {
     return (
