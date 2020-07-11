@@ -91,7 +91,15 @@ class BurgerBuilder extends Component {
     //     this.setState({ loading: false, purchasing: false })
     //   }, 100);
     // })
-    this.props.history.push("./checkout")
+    const queryParams = []
+    for (let i in this.state.ingredients) {
+      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
+    }
+    const queryString = queryParams.join('&')
+    this.props.history.push({
+      pathname: '/checkout',
+      search: '?' + queryString
+    })
   }
   componentDidMount() {
     axios.get('https://burger-builder-amans199.firebaseio.com/ingredients.json').then(res => {
