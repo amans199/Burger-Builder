@@ -1,5 +1,6 @@
 import React from 'react';
 // import classes from './Burger.css'
+// import { withRouter } from 'react-router-dom'
 import './Burger.css';
 import BurgerIngredient from './BurgerIngredients/BurgerIngredient';
 const burger = (props) => {
@@ -22,4 +23,7 @@ const burger = (props) => {
     </div>
   )
 }
+
+// with router adds history for this Component 
+// export default withRouter(burger);
 export default burger;

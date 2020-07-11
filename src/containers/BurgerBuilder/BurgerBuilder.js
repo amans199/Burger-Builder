@@ -68,29 +68,30 @@ class BurgerBuilder extends Component {
     this.setState({ purchasing: false })
   }
   purchaseContinueHandler = () => {
-    this.setState({ loading: true })
-    //for future ref : you have to calc the price on the server to prevent the users from manipulating the prices
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name: 'ahmed mansour',
-        address: 'testing adddressssssss',
-        email: 'test@test.com'
-      },
-      deliveryMethod: 'fastest'
-    }
-    axios.post('/orders.json', order).then(res => console.log(res)).catch(err => {
-      console.log(err)
-      // this settimeout is just for showing the spinner and testing purposes 
-      setTimeout(() => {
-        this.setState({ loading: false, purchasing: false })
-      }, 100);
-    }).finally(() => {
-      setTimeout(() => {
-        this.setState({ loading: false, purchasing: false })
-      }, 100);
-    })
+    // this.setState({ loading: true })
+    // //for future ref : you have to calc the price on the server to prevent the users from manipulating the prices
+    // const order = {
+    //   ingredients: this.state.ingredients,
+    //   price: this.state.totalPrice,
+    //   customer: {
+    //     name: 'ahmed mansour',
+    //     address: 'testing adddressssssss',
+    //     email: 'test@test.com'
+    //   },
+    //   deliveryMethod: 'fastest'
+    // }
+    // axios.post('/orders.json', order).then(res => console.log(res)).catch(err => {
+    //   console.log(err)
+    //   // this settimeout is just for showing the spinner and testing purposes 
+    //   setTimeout(() => {
+    //     this.setState({ loading: false, purchasing: false })
+    //   }, 100);
+    // }).finally(() => {
+    //   setTimeout(() => {
+    //     this.setState({ loading: false, purchasing: false })
+    //   }, 100);
+    // })
+    this.props.history.push("./checkout")
   }
   componentDidMount() {
     axios.get('https://burger-builder-amans199.firebaseio.com/ingredients.json').then(res => {
