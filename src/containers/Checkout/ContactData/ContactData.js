@@ -10,14 +10,22 @@ class ContactData extends Component {
       name: {
         elementType: 'input',
         value: "",
+        valid: false,
+        validation: {
+          required: true
+        },
         elementConfig: {
           type: 'text',
           placeholder: 'Your Name'
-        }
+        },
       },
       street: {
         elementType: 'input',
         value: "",
+        valid: false,
+        validation: {
+          required: true
+        },
         elementConfig: {
           type: 'text',
           placeholder: 'Your Street'
@@ -26,6 +34,12 @@ class ContactData extends Component {
       zipCode: {
         elementType: 'input',
         value: "",
+        valid: false,
+        validation: {
+          required: true,
+          minLength: 5,
+          maxLength: 5
+        },
         elementConfig: {
           type: 'text',
           placeholder: 'Your Zip Code'
@@ -34,6 +48,10 @@ class ContactData extends Component {
       country: {
         elementType: 'input',
         value: "",
+        valid: false,
+        validation: {
+          required: true
+        },
         elementConfig: {
           type: 'text',
           placeholder: 'Your Country'
@@ -42,6 +60,10 @@ class ContactData extends Component {
       address: {
         elementType: 'input',
         value: "",
+        valid: false,
+        validation: {
+          required: true
+        },
         elementConfig: {
           type: 'text',
           placeholder: 'Your Address'
@@ -50,6 +72,10 @@ class ContactData extends Component {
       email: {
         elementType: 'input',
         value: "",
+        valid: false,
+        validation: {
+          required: true
+        },
         elementConfig: {
           type: 'email',
           placeholder: 'Your Email'
@@ -58,6 +84,10 @@ class ContactData extends Component {
       deliveryMethod: {
         elementType: 'select',
         value: "",
+        valid: false,
+        validation: {
+          required: true
+        },
         elementConfig: {
           options: [{ value: 'fastest', displayValue: 'Fastest' },
           { value: 'cheapest', displayValue: 'Cheapest' }
@@ -94,8 +124,27 @@ class ContactData extends Component {
     const updatedOrderForm = { ...this.state.orderForm }
     const updatedFormEl = { ...updatedOrderForm[inputIdentifier] }
     updatedFormEl.value = event.target.value
+    updatedFormEl.valid = this.checkValidatiy(updatedFormEl.value, updatedFormEl.validation)
     updatedOrderForm[inputIdentifier] = updatedFormEl
     this.setState({ orderForm: updatedOrderForm })
+  }
+
+
+  checkValidatiy = (value, rules) => {
+    let isValid = true;
+    if (rules.required) {
+      isValid = value.trim() !== '' && isValid
+    }
+
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength && isValid
+    }
+
+    if (rules.maxLength) {
+      isValid = value.length <= rules.maxLength && isValid
+    }
+
+    return isValid
   }
 
 
