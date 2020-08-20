@@ -11,17 +11,12 @@ import Spinner from '../../components/UI/Spinner/Spinner'
 import withErrorHandler from '../../hoc/WithErrorHandler/WithErrorHandler'
 import * as actionTypes from '../../store/actions'
 
-const INGREDIENT_PRICES = {
-  salad: 0.5,
-  cheese: 0.4,
-  bacon: 0.3,
-  meat: 1.2
-}
+
 
 class BurgerBuilder extends Component {
   state = {
     // ingredients: null,
-    totalPrice: 4,
+    // totalPrice: 4,
     purchaseable: false,
     purchasing: false,
     loading: false,
@@ -35,36 +30,36 @@ class BurgerBuilder extends Component {
     }, 0)
     this.setState({ purchaseable: sum > 0 })
   }
-  addIngredientHandler = (type) => {
-    const oldCount = this.state.ingredients[type]
-    const updatedCount = oldCount + 1;
-    const updatedIngredients = {
-      ...this.state.ingredients
-    }
-    updatedIngredients[type] = updatedCount
-    const priceAddition = INGREDIENT_PRICES[type];
-    const oldPrice = this.state.totalPrice
-    const newPrice = oldPrice + priceAddition
-    this.setState({ totalPrice: newPrice, ingredients: updatedIngredients })
-    this.updatePurchaseState(updatedIngredients);
-  }
+  // addIngredientHandler = (type) => {
+  //   const oldCount = this.state.ingredients[type]
+  //   const updatedCount = oldCount + 1;
+  //   const updatedIngredients = {
+  //     ...this.state.ingredients
+  //   }
+  //   updatedIngredients[type] = updatedCount
+  //   const priceAddition = INGREDIENT_PRICES[type];
+  //   const oldPrice = this.state.totalPrice
+  //   const newPrice = oldPrice + priceAddition
+  //   this.setState({ totalPrice: newPrice, ingredients: updatedIngredients })
+  //   this.updatePurchaseState(updatedIngredients);
+  // }
 
-  removeIngredientHandler = (type) => {
-    const oldCount = this.state.ingredients[type]
-    if (oldCount <= 0) {
-      return;
-    }
-    const updatedCount = oldCount - 1;
-    const updatedIngredients = {
-      ...this.state.ingredients
-    }
-    updatedIngredients[type] = updatedCount
-    const priceAddition = INGREDIENT_PRICES[type];
-    const oldPrice = this.state.totalPrice
-    const newPrice = oldPrice - priceAddition
-    this.setState({ totalPrice: newPrice, ingredients: updatedIngredients })
-    this.updatePurchaseState(updatedIngredients);
-  }
+  // removeIngredientHandler = (type) => {
+  //   const oldCount = this.state.ingredients[type]
+  //   if (oldCount <= 0) {
+  //     return;
+  //   }
+  //   const updatedCount = oldCount - 1;
+  //   const updatedIngredients = {
+  //     ...this.state.ingredients
+  //   }
+  //   updatedIngredients[type] = updatedCount
+  //   const priceAddition = INGREDIENT_PRICES[type];
+  //   const oldPrice = this.state.totalPrice
+  //   const newPrice = oldPrice - priceAddition
+  //   this.setState({ totalPrice: newPrice, ingredients: updatedIngredients })
+  //   this.updatePurchaseState(updatedIngredients);
+  // }
   purchaseHandler = () => {
     this.setState({ purchasing: true })
   }
@@ -107,7 +102,7 @@ class BurgerBuilder extends Component {
             ? <OrderSummary ingredients={this.props.ingredients}
               purchaseCanceled={this.purchaseCancelHandler}
               purchaseContinued={this.purchaseContinueHandler}
-              price={this.state.totalPrice} />
+              price={this.props.price} />
             : <Spinner error={this.state.error} />}
         </Modal>
         {this.props.ingredients
@@ -118,7 +113,7 @@ class BurgerBuilder extends Component {
             ingredientAdded={this.props.onIngredientAdded}
             ingredientRemoved={this.props.onIngredientRemoved}
             disabled={disabledInfo}
-            price={this.state.totalPrice}
+            price={this.props.price}
             purchaseable={this.state.purchaseable}
             ordered={this.purchaseHandler} />
           : null}
@@ -129,7 +124,9 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
   return {
-    ingredients: state.ingredients
+    ingredients: state.ingredients,
+    price: state.totalPrice,
+
   }
 }
 const mapDispatchToProps = dispatch => {
