@@ -72,11 +72,7 @@ class BurgerBuilder extends Component {
   }
   componentDidMount() {
     console.log(this.props)
-    // axios.get('https://burger-builder-amans199.firebaseio.com/ingredients.json').then(res => {
-    //   this.setState({ ingredients: res.data })
-    // }).catch(err => {
-    //   this.setState({ error: true })
-    // })
+
   }
   render() {
     const disabledInfo = {
