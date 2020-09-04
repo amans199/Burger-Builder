@@ -71,7 +71,8 @@ class BurgerBuilder extends Component {
     this.props.history.push('/checkout')
   }
   componentDidMount() {
-    console.log(this.props)
+    // console.log(this.props)
+    this.props.onInitIngredient()
 
   }
   render() {
@@ -90,11 +91,11 @@ class BurgerBuilder extends Component {
               purchaseCanceled={this.purchaseCancelHandler}
               purchaseContinued={this.purchaseContinueHandler}
               price={this.props.price} />
-            : <Spinner error={this.state.error} />}
+            : <Spinner error={this.props.error} />}
         </Modal>
         {this.props.ingredients
           ? <Burger ingredients={this.props.ingredients} />
-          : <Spinner error={this.state.error} />}
+          : <Spinner error={this.props.error} />}
         {this.props.ingredients
           ? <BuildControls
             ingredientAdded={this.props.onIngredientAdded}
@@ -113,7 +114,7 @@ const mapStateToProps = state => {
   return {
     ingredients: state.ingredients,
     price: state.totalPrice,
-
+    error: state.error
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -123,7 +124,8 @@ const mapDispatchToProps = dispatch => {
     ),
     onIngredientRemoved: (ingredientName) => dispatch(
       burgerBuilderActions.removeIngredient(ingredientName)
-    )
+    ),
+    onInitIngredient: () => dispatch(burgerBuilderActions.initIngredients())
   }
 }
 
