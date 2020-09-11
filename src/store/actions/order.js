@@ -26,7 +26,6 @@ export const purchaseBurger = (orderData) => {
   return dispatch => {
     dispatch(purchaseBurgerStart())
     axios.post('/orders.json', orderData).then(res => {
-      // this.props.history.push('/')
       dispatch(purchaseBurgerSuccess(res.data.name, orderData))
     }
     ).catch(err => {
@@ -38,5 +37,48 @@ export const purchaseBurger = (orderData) => {
 export const purchaseInit = () => {
   return {
     type: actionTypes.PURCHASE_INIT
+  }
+}
+
+
+
+export const fetchOrderSuccess = (orders) => {
+  return {
+    type: actionTypes.FETCH_ORDERS_SUCCESS,
+    orders: orders
+  }
+}
+
+
+
+export const fetchOrderFailed = (error) => {
+  return {
+    type: actionTypes.FETCH_ORDERS_FAILED,
+    error: error
+  }
+}
+
+
+export const fetchOrderStart = () => {
+  return {
+    type: actionTypes.FETCH_ORDERS_START
+  }
+}
+
+export const fetchOrders = () => {
+  return dispatch => {
+    dispatch(fetchOrderStart())
+    axios.get('/orders.json').then(res => {
+      const fetchedOrders = []
+      for (let key in res.data) {
+        fetchedOrders.push({
+          ...res.data[key],
+          id: key
+        })
+      }
+      dispatch(fetchOrderSuccess(fetchedOrders))
+    }).catch(err => {
+      dispatch(fetchOrderFailed(err))
+    })
   }
 }
