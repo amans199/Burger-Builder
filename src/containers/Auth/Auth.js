@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import Input from '../../components/UI/Input/Input'
 import Button from '../../components/UI/Button/Button'
 import './Auth.css'
+import * as Actions from '../../store/actions/index'
 class Auth extends Component {
   state = {
     controls: {
@@ -69,7 +71,10 @@ class Auth extends Component {
     return isValid
   }
 
-
+  sumbitHandler = (event) => {
+    event.preventDefault()
+    this.props.onAuth(this.state.controls.email, this.state.controls.password)
+  }
 
 
   render() {
@@ -94,7 +99,7 @@ class Auth extends Component {
     ))
     return (
       <div className="Auth">
-        <form>
+        <form onSubmit={this.sumbitHandler}>
           {form}
           <Button btnType="Success">Submit</Button>
         </form>
@@ -103,4 +108,11 @@ class Auth extends Component {
   }
 }
 
-export default Auth
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth: (email, password) => dispatch(Actions.auth(email, password))
+  }
+}
+
+
+export default connect(null, mapDispatchToProps)(Auth)
