@@ -29,7 +29,11 @@ export const auth = (email, password) => {
       password: password,
       returnSecureToken: true
     }
+<<<<<<< HEAD
     axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=' + process.env.REACT_APP_FIREBASE_API_KEY + '').then(
+=======
+    axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzsldmsdmvdsvmls54qGM3eqqww11o').then(
+>>>>>>> 8a8750f55c230f991065f652533fb707171d4351
       res => {
         console.log(res)
         dispatch(authSuccess(res.data))
