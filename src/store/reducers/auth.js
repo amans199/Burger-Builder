@@ -10,7 +10,7 @@ const initialState = {
 const authStart = (state, action) => {
   return {
     ...state,
-    error: null,
+    error: action.error,
     loading: true
   }
 }
@@ -34,7 +34,7 @@ const authFailed = (state, action) => {
 }
 
 
-const reducer = (state, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_START: return authStart(state, action)
     case actionTypes.AUTH_SUCCESS: return authSuccess(state, action)
