@@ -35,7 +35,8 @@ class Auth extends Component {
           placeholder: 'password'
         },
       },
-    }
+    },
+    isSignUp: true
   }
 
 
@@ -73,9 +74,15 @@ class Auth extends Component {
 
   sumbitHandler = (event) => {
     event.preventDefault()
-    this.props.onAuth(this.state.controls.email, this.state.controls.password)
+    this.props.onAuth(this.state.controls.email, this.state.controls.password, this.state.isSignUp)
   }
 
+
+  switchAuthModeHandler = () => {
+    this.setState(prevState => {
+      return { isSignUp: !prevState.isSignUp }
+    })
+  }
 
   render() {
     const formElementsArray = [];
@@ -101,8 +108,10 @@ class Auth extends Component {
       <div className="Auth">
         <form onSubmit={this.sumbitHandler}>
           {form}
-          <Button btnType="Success">Submit</Button>
+          <Button btnType="Success">{this.state.isSignUp ? 'Register' : 'Sign In'}</Button>
         </form>
+        <Button clicked={this.switchAuthModeHandler} btnType="Danger">{this.state.isSignUp ? 'you have an account ? try Sign In' : 'you don\'t have an account ? try Registering'}</Button>
+
       </div>
     )
   }
@@ -110,7 +119,7 @@ class Auth extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (email, password) => dispatch(Actions.auth(email, password))
+    onAuth: (email, password, isSignUp) => dispatch(Actions.auth(email, password, isSignUp))
   }
 }
 
